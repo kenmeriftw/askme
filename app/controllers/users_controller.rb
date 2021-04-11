@@ -13,14 +13,15 @@ class UsersController < ApplicationController
   end
 
   def edit
-
   end
 
   def create
     redirect_to root_url, alert: 'Вы уже залогинены' if current_user.present?
 
     @user = User.new(user_params)
+
     if @user.save
+      session[:user_id] = @user.id
       redirect_to root_url, notice: 'Пользователь зарегистрирован'
     else
       render :new
@@ -51,11 +52,6 @@ class UsersController < ApplicationController
 
   def load_user
     @user ||= User.find params[:id]
-  end
-
-  def log_in_user
-    User.authenticate(user_params[:email], user_params[:password])
-    session[:user_id] = @user.id
   end
 
   def user_params
