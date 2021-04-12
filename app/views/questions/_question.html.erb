@@ -16,6 +16,7 @@
 
     <div class="question-date">
       <%= l(question.created_at, format: :short) %>
+       Вопрос задал <%= link_to "#{question.author.name}", user_path(question.author) %>
     </div>
   </div>
 

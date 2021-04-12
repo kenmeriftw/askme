@@ -37,6 +37,10 @@ class QuestionsController < ApplicationController
     reject_user unless @question.user == current_user
   end
 
+  def author
+    User.find(question[:author_id])
+  end
+
   def load_question
     @question = Question.find(params[:id])
   end
