@@ -1,24 +1,7 @@
-# README
+# ASKME
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is unofficial clone of ask.fm
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+To clone this repo use `git@github.com:knmrftw/askme.git`
+You need to have `ruby-3.0.0` installed on your machine. 
+So, first you have to install `yarn`. Then run `bundle` to install all gems from Gemfile. Then run `rails db:create` and `rails db:migrate` to create database and migrate all dependencies.
