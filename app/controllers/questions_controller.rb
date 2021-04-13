@@ -8,12 +8,11 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(question_params)
-    @question.author_id = current_user[:id]
 
     if @question.save
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
-      render :new
+      render :edit
     end
   end
 
@@ -36,10 +35,6 @@ class QuestionsController < ApplicationController
 
   def authorize_user
     reject_user unless @question.user == current_user
-  end
-
-  def author
-    User.find(question[:author_id])
   end
 
   def load_question
