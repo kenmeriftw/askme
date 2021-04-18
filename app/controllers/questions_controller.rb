@@ -4,10 +4,12 @@ class QuestionsController < ApplicationController
   before_action :authorize_user, except: [:create]
 
   def edit
+
   end
 
   def create
     @question = Question.new(question_params)
+    @question.author = current_user
 
     if @question.save
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
