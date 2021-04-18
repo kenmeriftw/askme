@@ -11,6 +11,10 @@ class User < ApplicationRecord
   attr_accessor :password
 
   has_many :questions, dependent: :destroy
+  has_many :asked_questions,
+    class_name: 'Question',
+    foreign_key: :author_id,
+    dependent: :nullify
 
   validates :email, :username, presence: true
   validates :email, :username, uniqueness: true
