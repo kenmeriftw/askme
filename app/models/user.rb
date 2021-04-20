@@ -12,9 +12,9 @@ class User < ApplicationRecord
 
   has_many :questions, dependent: :destroy
   has_many :asked_questions,
-    class_name: 'Question',
-    foreign_key: :author_id,
-    dependent: :nullify
+          class_name: 'Question',
+          foreign_key: :author_id,
+          dependent: :nullify
 
   validates :email, :username, presence: true
   validates :email, :username, uniqueness: true
@@ -22,7 +22,7 @@ class User < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   # username validation
   validates :username, format: { with: VALID_USERNAME_REGEXP }
-  #border color validation
+  # border color validation
   validates :profile_background_color, format: { with: VALID_BORDER_COLOR_REGEXP }
   # username maximum length validation
   validates :username, length: { maximum: 40 }
