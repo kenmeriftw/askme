@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :load_question, only: %i[show edit update destroy hashtag_extractor_text hashtag_from_extractor_answer]
-  before_action :authorize_user, except: [:create]
+  before_action :authorize_user, except: :create
 
   after_action :hashtag_creator_text, only: :create
   after_action :hashtag_creator_answer, only: :update
@@ -43,13 +43,13 @@ class QuestionsController < ApplicationController
 
   def hashtag_creator_answer
     hashtag_extractor_answer.each do |word|
-      @question.hashtags.create(name: word)
+      @question.hashtags.create(name: word.downcase)
     end
   end
 
   def hashtag_creator_text
     hashtag_extractor_text.each do |word|
-      @question.hashtags.create(name: word)
+      @question.hashtags.create(name: word.downcase)
     end
   end
 

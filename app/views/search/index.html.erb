@@ -1,11 +1,6 @@
-<div class="search-page">
-  <% if @questions.exists? %>
-    <h1>Top Posts</h1>
-  <% else %>
-    <h1>Oop! No matching posts ...</h1>
-  <% end %>
+<div class="container content-wrapper buffer-both">
 <div class="user-images">
-    <% @questions.each do |post|%>
+    <% @questions.each do |question|%>
       <div class="wrapper">
         <%= render partial: 'questions/question', object: question %>
       </div>

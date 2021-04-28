@@ -6,7 +6,7 @@
     <div class="question-text text-lead">
       <% question.text.to_s.split(' ').each do |word| %>
         <% if word.start_with?('#') %>
-          <%= link_to word, search_path(query: word) %>
+          <%= link_to word, search_path(query: word.downcase) %>
         <%else %>
           <%= word %>
         <%end %>
