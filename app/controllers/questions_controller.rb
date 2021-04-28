@@ -1,7 +1,11 @@
 class QuestionsController < ApplicationController
-  before_action :load_question, only: %i[show edit update destroy]
-
+  before_action :load_question, only: %i[show edit update destroy hashtag_extractor_text hashtag_from_extractor_answer]
   before_action :authorize_user, except: [:create]
+
+  after_action :hashtag_creator_text, only: :create
+  after_action :hashtag_creator_answer, only: :update
+
+  HASHTAG_REGEXP = /#[[:word:]-]+/
 
   def edit; end
 
@@ -35,6 +39,26 @@ class QuestionsController < ApplicationController
 
   def authorize_user
     reject_user unless @question.user == current_user
+  end
+
+  def hashtag_creator_answer
+    hashtag_extractor_answer.each do |word|
+      @question.hashtags.create(name: word)
+    end
+  end
+
+  def hashtag_creator_text
+    hashtag_extractor_text.each do |word|
+      @question.hashtags.create(name: word)
+    end
+  end
+
+  def hashtag_extractor_answer
+    @question.answer.to_s.scan(HASHTAG_REGEXP).map{ |n| n.gsub("#", "")} 
+  end
+
+  def hashtag_extractor_text
+    @question.text.to_s.scan(HASHTAG_REGEXP).map{ |n| n.gsub("#", "")} 
   end
 
   def load_question

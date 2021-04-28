@@ -1,34 +1,47 @@
-
 <% question ||= nil %>
 <% action_icon = question.answer.blank? ? 'reply' : 'pencil' %>
 
 <div class="question">
   <div class="question-content">
     <div class="question-text text-lead">
-      <%= question.text %>
+      <% question.text.to_s.split(' ').each do |word| %>
+        <% if word.start_with?('#') %>
+          <%= link_to word, search_path(query: word) %>
+        <%else %>
+          <%= word %>
+        <%end %>
+      <% end %>
     </div>
 
     <% if question.answer.present? %>
-      <div class="question-answer text-lead">
-        <%= question.answer if question.answer.present? %>
-      </div>
+    <div class="question-answer text-lead">
+    <% if question.answer.present? %>
+    <% question.answer.to_s.split(' ').each do |word| %>
+        <% if word.start_with?('#') %>
+          <%= link_to word, search_path(query: word) %>
+        <%else %>
+          <%= word %>
+        <%end %>
+      <% end %>
+    <% end %>
+    </div>
     <% end %>
 
     <div class="question-date">
       <%= l(question.created_at, format: :short) %>
       <% if question.author %>
-        Вопрос задал <%= link_to question.author.name, user_path(question.author) %>
+      Вопрос задал <%= link_to question.author.name, user_path(question.author) %>
       <% else %>
-        Вопрос задал анонимный пользователь
+      Вопрос задал анонимный пользователь
       <% end %>
     </div>
   </div>
 
   <% if question.user == current_user %>
-    <div class="question-actions">
-      <%= link_to fa_icon(action_icon), edit_question_path(question) %>
-      <%= link_to fa_icon('trash-o'), question_path(question),
+  <div class="question-actions">
+    <%= link_to fa_icon(action_icon), edit_question_path(question) %>
+    <%= link_to fa_icon('trash-o'), question_path(question),
                   method: :delete, data: {confirm: 'Вы точно хотите удалить вопрос?'} %>
-    </div>
+  </div>
   <% end %>
 </div>

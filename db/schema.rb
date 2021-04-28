@@ -19,12 +19,12 @@ ActiveRecord::Schema.define(version: 2021_04_28_061512) do
   end
 
   create_table "question_hashtags", force: :cascade do |t|
-    t.integer "questions_id"
-    t.integer "hashtags_id"
+    t.integer "question_id"
+    t.integer "hashtag_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["hashtags_id"], name: "index_question_hashtags_on_hashtags_id"
-    t.index ["questions_id"], name: "index_question_hashtags_on_questions_id"
+    t.index ["hashtag_id"], name: "index_question_hashtags_on_hashtag_id"
+    t.index ["question_id"], name: "index_question_hashtags_on_question_id"
   end
 
   create_table "questions", force: :cascade do |t|
