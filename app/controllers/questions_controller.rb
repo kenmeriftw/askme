@@ -1,19 +1,16 @@
 class QuestionsController < ApplicationController
-  before_action :load_question, only: %i[show edit update destroy hashtag_extractor_text hashtag_from_extractor_answer]
+  before_action :load_question, only: %i[show edit update destroy]
   before_action :authorize_user, except: :create
-
-  after_action :hashtag_creator_text, only: :create
-  after_action :hashtag_creator_answer, only: :update
-
-  HASHTAG_REGEXP = /#[[:word:]-]+/
 
   def edit; end
 
   def create
     @question = Question.new(question_params)
     @question.author = current_user
+    extractor = HashtagExtractor.new(@question)
 
     if @question.save
+      extractor.create_hashtag_from_text
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
       render :edit
@@ -21,7 +18,9 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    extractor = HashtagExtractor.new(@question)
     if @question.update(question_params)
+      extractor.create_hashtag_from_answer(question)
       redirect_to user_path(@question.user), notice: 'Вопрос сохранен'
     else
       render :edit
@@ -39,26 +38,6 @@ class QuestionsController < ApplicationController
 
   def authorize_user
     reject_user unless @question.user == current_user
-  end
-
-  def hashtag_creator_answer
-    hashtag_extractor_answer.each do |word|
-      @question.hashtags.create(name: word.downcase)
-    end
-  end
-
-  def hashtag_creator_text
-    hashtag_extractor_text.each do |word|
-      @question.hashtags.create(name: word.downcase)
-    end
-  end
-
-  def hashtag_extractor_answer
-    @question.answer.to_s.scan(HASHTAG_REGEXP).map{ |n| n.gsub("#", "")} 
-  end
-
-  def hashtag_extractor_text
-    @question.text.to_s.scan(HASHTAG_REGEXP).map{ |n| n.gsub("#", "")} 
   end
 
   def load_question
