@@ -18,6 +18,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'pry-rails'
   gem 'sqlite3', '~> 1.4'
+  gem 'dotenv-rails'
 end
 
 group :development do
