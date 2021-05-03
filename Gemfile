@@ -5,6 +5,7 @@ ruby '3.0.0'
 
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.3'
+gem 'recaptcha', require: 'recaptcha/rails'
 gem 'uglifier'
 gem 'rails_12factor'
 gem 'webpacker', '~> 5.0'
@@ -14,6 +15,8 @@ group :production do
 end
 
 group :development, :test do
+  gem 'dotenv-rails'
+  gem 'pry-rails'
   gem 'sqlite3', '~> 1.4'
 end
 

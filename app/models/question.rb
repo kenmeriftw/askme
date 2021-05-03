@@ -11,6 +11,7 @@ class Question < ApplicationRecord
   validates :text, length: { maximum: 255 }
 
   after_destroy :hashtags_delete
+  after_update  :hashtags_delete
 
   def hashtags_delete
     Hashtag.left_outer_joins(:questions).where(questions: { id: nil }).destroy_all
