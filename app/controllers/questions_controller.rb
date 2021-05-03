@@ -20,7 +20,7 @@ class QuestionsController < ApplicationController
   def update
     extractor = HashtagExtractor.new(@question)
     if @question.update(question_params)
-      extractor.create_hashtag_from_answer(question)
+      extractor.create_hashtag_from_answer
       redirect_to user_path(@question.user), notice: 'Вопрос сохранен'
     else
       render :edit
