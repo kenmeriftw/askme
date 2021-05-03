@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  get 'hashtag/destroy'
   root 'users#index'
 
-  resources :users
+  resources :users, except: :destroy
   resource :session, only: %i[new create destroy]
   resources :questions, except: %i[show new index ]
 
   get 'search' => 'search#index'
+  get 'hashtag/destroy'
 end
