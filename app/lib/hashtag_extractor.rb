@@ -6,18 +6,16 @@ class HashtagExtractor
   end
 
   def create_hashtags
-    @question&.hashtags.destroy_all
+    @question&.hashtags.delete_all
+    @question.hashtags_delete
     extract_hashtags.each do |word|
-      @question.hashtags.create(name: word.downcase) unless Hashtag.exists?(name: word)
+      @question.hashtags.find_or_create_by(name: word.downcase)
     end
   end
 
+  private
+  
   def extract_hashtags
-    @question.answer.to_s.scan(HASHTAG_REGEXP).map{ |n| n.gsub("#", "")} + 
-      @question.text.to_s.scan(HASHTAG_REGEXP).map{ |n| n.gsub("#", "")}
-  end
-
-  def sanitize_hashtags
-    
+    (@question.text.to_s + " " + @question&.answer.to_s).scan(HASHTAG_REGEXP).map{ |n| n.gsub("#", "")}
   end
 end

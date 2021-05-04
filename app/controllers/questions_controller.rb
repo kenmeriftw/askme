@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
     @question.author = current_user
     extractor = HashtagExtractor.new(@question)
 
-    if check_captcha(@questions) && @question.save
+    if check_captcha && @question.save
       extractor.create_hashtags
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
@@ -40,11 +40,11 @@ class QuestionsController < ApplicationController
     reject_user unless @question.user == current_user
   end
   
-  def check_captcha(model)
+  def check_captcha
     if current_user.present?
       true
     else
-      verify_recaptcha(model: model)
+      verify_recaptcha
     end
   end
 
