@@ -17,7 +17,7 @@ module Api
       def ensure_user_authorized
         token = request.headers['Authorization'].gsub(/\ABearer /, '')
 
-        @current_user = result = User.where.not(api_token: nil).find_by(api_token: token)
+        result = User.where.not(api_token: nil).find_by(api_token: token)
 
         return head(403) unless result
       end
