@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    @hashtags = Hashtag.useful.select(:name).distinct
   end
 
   def new
@@ -11,8 +12,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     redirect_to root_path, alert: 'Вы уже залогинены' if current_user.present?

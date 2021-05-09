@@ -13,10 +13,9 @@
 
   <div class="container content-wrapper buffer-both">
     <div class="user-images">
-      <% @hashtags = Hashtag.all.map(&:name).map { |word| "##{word}" }.uniq %>
       <% @hashtags.each do |hashtag|%>
       <div class="wrapper">
-        <p><%= link_to hashtag, search_path(query: hashtag.downcase) %></p>
+        <p><%= link_to "##{hashtag.name}", search_path(query: "##{hashtag.name}") %></p>
       </div>
     <% end %>
     </div>
