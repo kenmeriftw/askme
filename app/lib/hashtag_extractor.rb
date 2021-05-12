@@ -8,7 +8,7 @@ class HashtagExtractor
   def create_hashtags
     @question.hashtags.clear
     extract_hashtags.each do |word|
-      @question.hashtags.find_or_create_by(name: word)
+      @question.hashtags << Hashtag.find_or_create_by(name: word)
     end
   end
 
