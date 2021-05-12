@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-    @hashtags = Hashtag.useful.select(:name).distinct
+    @hashtags = Hashtag.where_exists(:questions, id: nil)
   end
 
   def new
