@@ -1,5 +1,5 @@
 class SearchController < ApplicationController
   def index
-    @questions = Question.where_exists(:hashtags, name: params[:query].gsub('#', ''))
+    @questions = Hashtag.find_by(name: params[:query].gsub('#', '')).questions
   end
 end
