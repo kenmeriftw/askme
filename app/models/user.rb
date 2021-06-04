@@ -34,7 +34,8 @@ class User < ApplicationRecord
 
   def self.authenticate(email, password)
     user = find_by(email: email&.downcase) # finding person via email
-
+    
+    return unless user.present?
     # we compare the password hashes, not the real passwords! we do not keep password in DB
     return unless user&.password_hash == User.hash_to_string(OpenSSL::PKCS5.pbkdf2_hmac(
                                                                     password, user&.password_salt, ITERATIONS,
