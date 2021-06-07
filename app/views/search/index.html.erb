@@ -1,6 +1,6 @@
 <div class="container content-wrapper buffer-both">
 <div class="user-images">
-    <% @questions.uniq.each do |question|%>
+    <% @questions&.uniq&.each do |question|%>
       <div class="wrapper">
         <%= render partial: 'questions/question', object: question %>
       </div>
