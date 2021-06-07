@@ -5,8 +5,7 @@ Rails.application.routes.draw do
   resource :session, only: %i[new create destroy]
   resources :questions, except: %i[show new index ]
 
-  get 'search' => 'search#index'
-  get 'hashtag/destroy'
+  get 'tags' => 'search#index'
 
   # API V1 routes
 

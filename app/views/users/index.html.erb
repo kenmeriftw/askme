@@ -15,7 +15,7 @@
     <div class="user-images">
       <% @hashtags.each do |hashtag|%>
       <div class="wrapper">
-        <p><%= link_to "##{hashtag.name}", search_path(query: "##{hashtag.name}") %></p>
+        <p><%= link_to "##{hashtag.name}", tags_path(query: "##{hashtag.name}") %></p>
       </div>
     <% end %>
     </div>
