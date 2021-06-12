@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
   root 'users#index'
-
-  resources :users
+  
   resource :session, only: %i[new create destroy]
+  resources :tags, only: :show, param: :name
+  resources :users
   resources :questions, except: %i[show new index ]
-
-  get 'tags' => 'search#index'
 
   # API V1 routes
 

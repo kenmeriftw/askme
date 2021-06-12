@@ -6,7 +6,7 @@
     <div class="question-text text-lead">
       <% question.text.to_s.split(' ').each do |word| %>
         <% if word.start_with?('#') %>
-          <%= link_to word, tags_path(query: word.downcase.gsub(/[[:punct:]]/, '')) %>
+          <%= link_to word, tag_path(word.downcase.gsub(/[[:punct:]]/, '')) %>
         <%else %>
           <%= word %>
         <%end %>
@@ -18,7 +18,7 @@
     <% if question.answer.present? %>
     <% question.answer.to_s.split(' ').each do |word| %>
         <% if word.start_with?('#') %>
-          <%= link_to word, tags_path(query: word.downcase.gsub(/[[:punct:]]/, '')) %>
+          <%= link_to word, tag_path(word.downcase.gsub(/[[:punct:]]/, '')) %>
         <%else %>
           <%= word %>
         <%end %>
