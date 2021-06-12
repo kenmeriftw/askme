@@ -1,9 +1,5 @@
 class TagsController < ApplicationController
   def show 
-    begin
-      @questions = Hashtag.find_by(name: params[:name]).questions
-    rescue => exception
-      raise ActiveRecord::RecordNotFound
-    end
+      @questions = Hashtag.find_by!(name: params[:name]).questions
   end
 end
